@@ -1,108 +1,2029 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="x-ua-compatible" content="IE=edge">
-  <title>Swagger UI</title>
-  <link rel="icon" type="image/png" href="images/favicon-32x32.png" sizes="32x32" />
-  <link rel="icon" type="image/png" href="images/favicon-16x16.png" sizes="16x16" />
-  <link href='css/typography.css' media='screen' rel='stylesheet' type='text/css'/>
-  <link href='css/reset.css' media='screen' rel='stylesheet' type='text/css'/>
-  <link href='css/screen.css' media='screen' rel='stylesheet' type='text/css'/>
-  <link href='css/reset.css' media='print' rel='stylesheet' type='text/css'/>
-  <link href='css/print.css' media='print' rel='stylesheet' type='text/css'/>
-
-  <script src='lib/object-assign-pollyfill.js' type='text/javascript'></script>
-  <script src='lib/jquery-1.8.0.min.js' type='text/javascript'></script>
-  <script src='lib/jquery.slideto.min.js' type='text/javascript'></script>
-  <script src='lib/jquery.wiggle.min.js' type='text/javascript'></script>
-  <script src='lib/jquery.ba-bbq.min.js' type='text/javascript'></script>
-  <script src='lib/handlebars-4.0.5.js' type='text/javascript'></script>
-  <script src='lib/lodash.min.js' type='text/javascript'></script>
-  <script src='lib/backbone-min.js' type='text/javascript'></script>
-  <script src='swagger-ui.js' type='text/javascript'></script>
-  <script src='lib/highlight.9.1.0.pack.js' type='text/javascript'></script>
-  <script src='lib/highlight.9.1.0.pack_extended.js' type='text/javascript'></script>
-  <script src='lib/jsoneditor.min.js' type='text/javascript'></script>
-  <script src='lib/marked.js' type='text/javascript'></script>
-  <script src='lib/swagger-oauth.js' type='text/javascript'></script>
-
-  <!-- Some basic translations -->
-  <!-- <script src='lang/translator.js' type='text/javascript'></script> -->
-  <!-- <script src='lang/ru.js' type='text/javascript'></script> -->
-  <!-- <script src='lang/en.js' type='text/javascript'></script> -->
-
-  <script type="text/javascript">
-    $(function () {
-      var url = window.location.search.match(/url=([^&]+)/);
-      if (url && url.length > 1) {
-        url = decodeURIComponent(url[1]);
-      } else {
-        url = "swagger.json";
-      }
-
-      hljs.configure({
-        highlightSizeThreshold: 5000
-      });
-
-      // Pre load translate...
-      if(window.SwaggerTranslator) {
-        window.SwaggerTranslator.translate();
-      }
-      window.swaggerUi = new SwaggerUi({
-        url: url,
-        dom_id: "swagger-ui-container",
-        supportedSubmitMethods: ['get', 'post', 'put', 'delete', 'patch'],
-        onComplete: function(swaggerApi, swaggerUi){
-          if(typeof initOAuth == "function") {
-            initOAuth({
-              clientId: "your-client-id",
-              clientSecret: "your-client-secret-if-required",
-              realm: "your-realms",
-              appName: "your-app-name",
-              scopeSeparator: " ",
-              additionalQueryStringParams: {}
-            });
-          }
-
-          if(window.SwaggerTranslator) {
-            window.SwaggerTranslator.translate();
-          }
-        },
-        onFailure: function(data) {
-          log("Unable to Load SwaggerUI");
-        },
-        docExpansion: "none",
-        jsonEditor: false,
-        defaultModelRendering: 'schema',
-        showRequestHeaders: false,
-        showOperationIds: false
-      });
-
-      window.swaggerUi.load();
-
-      function log() {
-        if ('console' in window) {
-          console.log.apply(console, arguments);
-        }
-      }
-  });
-  </script>
-</head>
-
-<body class="swagger-section">
-<div id='header'>
-  <div class="swagger-ui-wrap">
-    <a id="logo" href="http://swagger.io"><img class="logo__img" alt="swagger" height="30" width="30" src="images/logo_small.png" /><span class="logo__title">swagger</span></a>
-    <form id='api_selector'>
-      <div class='input'><input placeholder="http://example.com/api" id="input_baseUrl" name="baseUrl" type="text"/></div>
-      <div id='auth_container'></div>
-      <div class='input'><a id="explore" class="header__btn" href="#" data-sw-translate>Explore</a></div>
-    </form>
-  </div>
-</div>
-
-<div id="message-bar" class="swagger-ui-wrap" data-sw-translate>&nbsp;</div>
-<div id="swagger-ui-container" class="swagger-ui-wrap"></div>
-</body>
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shoppers OpenAPI | API Reference</title>
+    <link rel="stylesheet" href="stylesheets/foundation.min.css" />
+    <link rel="stylesheet" href="stylesheets/spectacle.min.css" />
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <!-- <script src="javascripts/foundation.js"></script> -->
+    <script src="javascripts/spectacle.min.js"></script>
+  </head>
+  <body id="spectacle">
+    <div id="page" class="drawer-layout drawer-slide-right-large">
+      <div id="sidebar">
+        <button class="close-button" aria-label="Close menu" type="button" data-drawer-close>
+          <span aria-hidden="true">×</span>
+        </button>
+        <nav id="nav" role="navigation">
+          <h5>API Reference</h5>
+          <a href="#introduction">Introduction</a>
+          <h5>Paths</h5>
+          <!-- <section>
+                <a href="#path--v1-products--sku--group-prices--customerGroupId--tiers">/v1/products/{sku}/group-prices/{customerGroupId}/tiers</a>
+                <ul> -->
+          <!-- <li> -->
+          <a href="#operation--v1-products--sku--group-prices--customerGroupId--tiers-get"> GET /v1/products/{sku}/group-prices/{customerGroupId}/tiers </a>
+          <!-- </li> -->
+          <!-- </ul>
+              </section> -->
+          <!-- <section>
+                <a href="#path--v1-products--sku--group-prices--customerGroupId--tiers--qty-">/v1/products/{sku}/group-prices/{customerGroupId}/tiers/{qty}</a>
+                <ul> -->
+          <!-- <li> -->
+          <a href="#operation--v1-products--sku--group-prices--customerGroupId--tiers--qty--delete"> DELETE /v1/products/{sku}/group-prices/{customerGroupId}/tiers/{qty} </a>
+          <!-- </li> -->
+          <!-- </ul>
+              </section> -->
+          <!-- <section>
+                <a href="#path--v1-products--sku--group-prices--customerGroupId--tiers--qty--price--price-">/v1/products/{sku}/group-prices/{customerGroupId}/tiers/{qty}/price/{price}</a>
+                <ul> -->
+          <!-- <li> -->
+          <a href="#operation--v1-products--sku--group-prices--customerGroupId--tiers--qty--price--price--post"> POST /v1/products/{sku}/group-prices/{customerGroupId}/tiers/{qty}/price/{price} </a>
+          <!-- </li> -->
+          <!-- </ul>
+              </section> -->
+          <h5>Schema Definitions</h5>
+          <a href="#definition-bundle-data-link-interface"> bundle-data-link-interface </a>
+          <a href="#definition-bundle-data-option-interface"> bundle-data-option-interface </a>
+          <a href="#definition-Category"> Category </a>
+          <a href="#definition-configurable-product-data-option-interface"> configurable-product-data-option-interface </a>
+          <a href="#definition-configurable-product-data-option-value-interface"> configurable-product-data-option-value-interface </a>
+          <a href="#definition-error-errors"> error-errors </a>
+          <a href="#definition-error-errors-item"> error-errors-item </a>
+          <a href="#definition-error-parameters"> error-parameters </a>
+          <a href="#definition-error-parameters-item"> error-parameters-item </a>
+          <a href="#definition-error-response"> error-response </a>
+          <a href="#definition-framework-attribute-interface"> framework-attribute-interface </a>
+          <a href="#definition-inventory-data-stock-item-interface"> inventory-data-stock-item-interface </a>
+          <a href="#definition-product"> product </a>
+          <a href="#definition-product-custom-option-interface"> product-custom-option-interface </a>
+          <a href="#definition-product-custom-option-values-interface"> product-custom-option-values-interface </a>
+          <a href="#definition-product-extension-interface"> product-extension-interface </a>
+          <a href="#definition-product-link-interface"> product-link-interface </a>
+          <a href="#definition-product-tier-price-interface"> product-tier-price-interface </a>
+        </nav>
+      </div>
+      <div id="docs" class="row collapse expanded drawer" data-drawer>
+        <button class="floating-menu-icon" type="button" data-drawer-slide="right">
+          <span class="hamburger"></span>
+        </button>
+        <div class="example-box doc-content"></div>
+        <article>
+          <div id="introduction" data-traverse-target="introduction">
+            <h1 class="doc-title">Shoppers OpenAPI
+              <span>API Reference</span>
+            </h1>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <p>This is a Shoppers Catalogue server.</p>
+                <p>
+                  <a href="http://swagger.io">Learn about Swagger</a> or join the IRC channel <code>#swagger</code> on irc.freenode.net.</p>
+                <p>For this sample, you can use the api key <code>special-key</code> to test the authorization filters</p>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>API Endpoint</h5>
+                  <div class="hljs"> <pre><code>http://shoppers.io/v2</code></pre> </div>
+                  <h5>Terms of Service:
+                    <a href="http://helloreverb.com/terms/">http://helloreverb.com/terms/</a>
+                  </h5>
+                  <!--
+          
+                  -->
+                  <h5>Schemes:
+                    <span>http</span>
+                  </h5>
+                  <h5>Version:
+                    <span>1.0.0</span>
+                  </h5>
+                </section>
+              </div>
+            </div>
+          </div>
+          <h1>Paths</h1>
+          <span id="path--v1-products--sku--group-prices--customerGroupId--tiers"></span>
+          <div id="operation--v1-products--sku--group-prices--customerGroupId--tiers-get" class="operation panel" data-traverse-target="operation--v1-products--sku--group-prices--customerGroupId--tiers-get">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-catalogProductTierPriceManagementV1">catalogProductTierPriceManagementV1</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-name">
+                <span class="operation-name">GET</span>
+                <span class="operation-path">/v1/products/{sku}/group-prices/{customerGroupId}/tiers</span>
+              </span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Get tier price of product</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">sku</div>
+                      <span class="json-property-required"></span>
+                    </div>
+                    <div class="prop-value">
+                      <p class="no-description">(no description)</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name param-label">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name param-label">in</div>
+                    <div class="prop-value">path</div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">customerGroupId</div>
+                      <span class="json-property-required"></span>
+                    </div>
+                    <div class="prop-value">
+                      <p>&#39;all&#39; can be used to specify &#39;ALL GROUPS&#39;</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name param-label">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name param-label">in</div>
+                    <div class="prop-value">path</div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                      <div class="prop-ref">
+                        <span class="json-schema-ref-array">
+                          <a class="json-schema-ref" href="#/definitions/product-tier-price-interface">product-tier-price-interface</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>200 Success.</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">400 Bad Request</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/error-response">error-response</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>400 Bad Request</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">401 Unauthorized</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/error-response">error-response</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>401 Unauthorized</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">default </div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/error-response">error-response</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Unexpected error</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Response Example
+                    <span>(200 OK)</span>
+                  </h5>
+                  <div class="hljs"><pre><code class="hljs json">[
+  {
+    <span class="hljs-attr">&quot;customer_group_id&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
+    <span class="hljs-attr">&quot;qty&quot;</span>: <span class="hljs-string">&quot;number&quot;</span>,
+    <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;number&quot;</span>
+  }
+]
+</code></pre> </div>
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(400 Bad Request)</span>
+                  </h5>
+                  <div class="hljs"><pre><code class="hljs json">{
+  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
+  <span class="hljs-attr">&quot;errors&quot;</span>: {
+    <span class="hljs-attr">&quot;$ref&quot;</span>: <span class="hljs-string"><a href="#definition-error-errors">&quot;#/definitions/error-errors&quot;</a></span>
+  },
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;parameters&quot;</span>: {
+    <span class="hljs-attr">&quot;$ref&quot;</span>: <span class="hljs-string"><a href="#definition-error-parameters">&quot;#/definitions/error-parameters&quot;</a></span>
+  },
+  <span class="hljs-attr">&quot;trace&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+}
+</code></pre> </div>
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(401 Unauthorized)</span>
+                  </h5>
+                  <div class="hljs"><pre><code class="hljs json">{
+  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
+  <span class="hljs-attr">&quot;errors&quot;</span>: {
+    <span class="hljs-attr">&quot;$ref&quot;</span>: <span class="hljs-string"><a href="#definition-error-errors">&quot;#/definitions/error-errors&quot;</a></span>
+  },
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;parameters&quot;</span>: {
+    <span class="hljs-attr">&quot;$ref&quot;</span>: <span class="hljs-string"><a href="#definition-error-parameters">&quot;#/definitions/error-parameters&quot;</a></span>
+  },
+  <span class="hljs-attr">&quot;trace&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+}
+</code></pre> </div>
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(default )</span>
+                  </h5>
+                  <div class="hljs"><pre><code class="hljs json">{
+  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
+  <span class="hljs-attr">&quot;errors&quot;</span>: {
+    <span class="hljs-attr">&quot;$ref&quot;</span>: <span class="hljs-string"><a href="#definition-error-errors">&quot;#/definitions/error-errors&quot;</a></span>
+  },
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;parameters&quot;</span>: {
+    <span class="hljs-attr">&quot;$ref&quot;</span>: <span class="hljs-string"><a href="#definition-error-parameters">&quot;#/definitions/error-parameters&quot;</a></span>
+  },
+  <span class="hljs-attr">&quot;trace&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+}
+</code></pre> </div>
+                </section>
+              </div>
+            </div>
+          </div>
+          <span id="path--v1-products--sku--group-prices--customerGroupId--tiers--qty-"></span>
+          <div id="operation--v1-products--sku--group-prices--customerGroupId--tiers--qty--delete" class="operation panel" data-traverse-target="operation--v1-products--sku--group-prices--customerGroupId--tiers--qty--delete">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-catalogProductTierPriceManagementV1">catalogProductTierPriceManagementV1</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-name">
+                <span class="operation-name">DELETE</span>
+                <span class="operation-path">/v1/products/{sku}/group-prices/{customerGroupId}/tiers/{qty}</span>
+              </span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Remove tier price from product</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">sku</div>
+                      <span class="json-property-required"></span>
+                    </div>
+                    <div class="prop-value">
+                      <p class="no-description">(no description)</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name param-label">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name param-label">in</div>
+                    <div class="prop-value">path</div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">customerGroupId</div>
+                      <span class="json-property-required"></span>
+                    </div>
+                    <div class="prop-value">
+                      <p>&#39;all&#39; can be used to specify &#39;ALL GROUPS&#39;</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name param-label">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name param-label">in</div>
+                    <div class="prop-value">path</div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">qty</div>
+                      <span class="json-property-required"></span>
+                    </div>
+                    <div class="prop-value">
+                      <p class="no-description">(no description)</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name param-label">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">number</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name param-label">in</div>
+                    <div class="prop-value">path</div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                      <div class="prop-ref"></div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>200 Success.</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">400 Bad Request</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/error-response">error-response</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>400 Bad Request</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">401 Unauthorized</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/error-response">error-response</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>401 Unauthorized</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">default </div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/error-response">error-response</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Unexpected error</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Response Example
+                    <span>(200 OK)</span>
+                  </h5>
+                  <div class="hljs"><pre><code class="hljs json">{
+  <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;boolean&quot;</span>
+}
+</code></pre> </div>
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(400 Bad Request)</span>
+                  </h5>
+                  <div class="hljs"><pre><code class="hljs json">{
+  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
+  <span class="hljs-attr">&quot;errors&quot;</span>: {
+    <span class="hljs-attr">&quot;$ref&quot;</span>: <span class="hljs-string"><a href="#definition-error-errors">&quot;#/definitions/error-errors&quot;</a></span>
+  },
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;parameters&quot;</span>: {
+    <span class="hljs-attr">&quot;$ref&quot;</span>: <span class="hljs-string"><a href="#definition-error-parameters">&quot;#/definitions/error-parameters&quot;</a></span>
+  },
+  <span class="hljs-attr">&quot;trace&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+}
+</code></pre> </div>
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(401 Unauthorized)</span>
+                  </h5>
+                  <div class="hljs"><pre><code class="hljs json">{
+  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
+  <span class="hljs-attr">&quot;errors&quot;</span>: {
+    <span class="hljs-attr">&quot;$ref&quot;</span>: <span class="hljs-string"><a href="#definition-error-errors">&quot;#/definitions/error-errors&quot;</a></span>
+  },
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;parameters&quot;</span>: {
+    <span class="hljs-attr">&quot;$ref&quot;</span>: <span class="hljs-string"><a href="#definition-error-parameters">&quot;#/definitions/error-parameters&quot;</a></span>
+  },
+  <span class="hljs-attr">&quot;trace&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+}
+</code></pre> </div>
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(default )</span>
+                  </h5>
+                  <div class="hljs"><pre><code class="hljs json">{
+  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
+  <span class="hljs-attr">&quot;errors&quot;</span>: {
+    <span class="hljs-attr">&quot;$ref&quot;</span>: <span class="hljs-string"><a href="#definition-error-errors">&quot;#/definitions/error-errors&quot;</a></span>
+  },
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;parameters&quot;</span>: {
+    <span class="hljs-attr">&quot;$ref&quot;</span>: <span class="hljs-string"><a href="#definition-error-parameters">&quot;#/definitions/error-parameters&quot;</a></span>
+  },
+  <span class="hljs-attr">&quot;trace&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+}
+</code></pre> </div>
+                </section>
+              </div>
+            </div>
+          </div>
+          <span id="path--v1-products--sku--group-prices--customerGroupId--tiers--qty--price--price-"></span>
+          <div id="operation--v1-products--sku--group-prices--customerGroupId--tiers--qty--price--price--post" class="operation panel" data-traverse-target="operation--v1-products--sku--group-prices--customerGroupId--tiers--qty--price--price--post">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-catalogProductTierPriceManagementV1">catalogProductTierPriceManagementV1</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-name">
+                <span class="operation-name">POST</span>
+                <span class="operation-path">/v1/products/{sku}/group-prices/{customerGroupId}/tiers/{qty}/price/{price}</span>
+              </span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Create tier price for product</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">sku</div>
+                      <span class="json-property-required"></span>
+                    </div>
+                    <div class="prop-value">
+                      <p class="no-description">(no description)</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name param-label">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name param-label">in</div>
+                    <div class="prop-value">path</div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">customerGroupId</div>
+                      <span class="json-property-required"></span>
+                    </div>
+                    <div class="prop-value">
+                      <p>&#39;all&#39; can be used to specify &#39;ALL GROUPS&#39;</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name param-label">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name param-label">in</div>
+                    <div class="prop-value">path</div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">price</div>
+                      <span class="json-property-required"></span>
+                    </div>
+                    <div class="prop-value">
+                      <p class="no-description">(no description)</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name param-label">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">number</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name param-label">in</div>
+                    <div class="prop-value">path</div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">qty</div>
+                      <span class="json-property-required"></span>
+                    </div>
+                    <div class="prop-value">
+                      <p class="no-description">(no description)</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name param-label">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">number</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name param-label">in</div>
+                    <div class="prop-value">path</div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                      <div class="prop-ref"></div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>200 Success.</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">400 Bad Request</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/error-response">error-response</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>400 Bad Request</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">401 Unauthorized</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/error-response">error-response</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>401 Unauthorized</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">default </div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/error-response">error-response</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Unexpected error</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Response Example
+                    <span>(200 OK)</span>
+                  </h5>
+                  <div class="hljs"><pre><code class="hljs json">{
+  <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;boolean&quot;</span>
+}
+</code></pre> </div>
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(400 Bad Request)</span>
+                  </h5>
+                  <div class="hljs"><pre><code class="hljs json">{
+  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
+  <span class="hljs-attr">&quot;errors&quot;</span>: {
+    <span class="hljs-attr">&quot;$ref&quot;</span>: <span class="hljs-string"><a href="#definition-error-errors">&quot;#/definitions/error-errors&quot;</a></span>
+  },
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;parameters&quot;</span>: {
+    <span class="hljs-attr">&quot;$ref&quot;</span>: <span class="hljs-string"><a href="#definition-error-parameters">&quot;#/definitions/error-parameters&quot;</a></span>
+  },
+  <span class="hljs-attr">&quot;trace&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+}
+</code></pre> </div>
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(401 Unauthorized)</span>
+                  </h5>
+                  <div class="hljs"><pre><code class="hljs json">{
+  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
+  <span class="hljs-attr">&quot;errors&quot;</span>: {
+    <span class="hljs-attr">&quot;$ref&quot;</span>: <span class="hljs-string"><a href="#definition-error-errors">&quot;#/definitions/error-errors&quot;</a></span>
+  },
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;parameters&quot;</span>: {
+    <span class="hljs-attr">&quot;$ref&quot;</span>: <span class="hljs-string"><a href="#definition-error-parameters">&quot;#/definitions/error-parameters&quot;</a></span>
+  },
+  <span class="hljs-attr">&quot;trace&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+}
+</code></pre> </div>
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(default )</span>
+                  </h5>
+                  <div class="hljs"><pre><code class="hljs json">{
+  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
+  <span class="hljs-attr">&quot;errors&quot;</span>: {
+    <span class="hljs-attr">&quot;$ref&quot;</span>: <span class="hljs-string"><a href="#definition-error-errors">&quot;#/definitions/error-errors&quot;</a></span>
+  },
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;parameters&quot;</span>: {
+    <span class="hljs-attr">&quot;$ref&quot;</span>: <span class="hljs-string"><a href="#definition-error-parameters">&quot;#/definitions/error-parameters&quot;</a></span>
+  },
+  <span class="hljs-attr">&quot;trace&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+}
+</code></pre> </div>
+                </section>
+              </div>
+            </div>
+          </div>
+          <!-- <h1>Schema definitions</h1> -->
+          <h1>Models</h1>
+          <div id="definition-bundle-data-link-interface" class="panel panel-definition" data-traverse-target="definition-bundle-data-link-interface">
+            <h2 class="panel-title">
+              <a name="/definitions/bundle-data-link-interface"></a>bundle-data-link-interface:
+              <span class="json-property-type">
+                <span class="json-property-type">object</span>
+                <span class="json-property-range" title="Value limits"></span>
+              </span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy"> </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-description">
+                  <p>Interface LinkInterface</p>
+                </section>
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="id">
+                      <span class="json-property-name">id:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>The identifier</p>
+                    </dd>
+                    <dt data-property-name="sku">
+                      <span class="json-property-name">sku:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Linked product sku</p>
+                    </dd>
+                    <dt data-property-name="option_id">
+                      <span class="json-property-name">option_id:</span>
+                      <span class="json-property-type">integer</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Option id</p>
+                    </dd>
+                    <dt data-property-name="qty">
+                      <span class="json-property-name">qty:</span>
+                      <span class="json-property-type">number</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Qty</p>
+                    </dd>
+                    <dt data-property-name="position">
+                      <span class="json-property-name">position:</span>
+                      <span class="json-property-type">integer</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Position</p>
+                    </dd>
+                    <dt data-property-name="is_default">
+                      <span class="json-property-name">is_default:</span>
+                      <span class="json-property-type">boolean</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
+                    </dt>
+                    <dd>
+                      <p>Is default</p>
+                    </dd>
+                    <dt data-property-name="price">
+                      <span class="json-property-name">price:</span>
+                      <span class="json-property-type">number</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
+                    </dt>
+                    <dd>
+                      <p>Price</p>
+                    </dd>
+                    <dt data-property-name="price_type">
+                      <span class="json-property-name">price_type:</span>
+                      <span class="json-property-type">integer</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
+                    </dt>
+                    <dd>
+                      <p>Price type</p>
+                    </dd>
+                    <dt data-property-name="can_change_quantity">
+                      <span class="json-property-name">can_change_quantity:</span>
+                      <span class="json-property-type">integer</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Whether quantity could be changed</p>
+                    </dd>
+                  </dl>
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-bundle-data-option-interface" class="panel panel-definition" data-traverse-target="definition-bundle-data-option-interface">
+            <h2 class="panel-title">
+              <a name="/definitions/bundle-data-option-interface"></a>bundle-data-option-interface:
+              <span class="json-property-type">
+                <span class="json-property-type">object</span>
+                <span class="json-property-range" title="Value limits"></span>
+              </span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy"> </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-description">
+                  <p>Interface OptionInterface</p>
+                </section>
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="option_id">
+                      <span class="json-property-name">option_id:</span>
+                      <span class="json-property-type">integer</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Option id</p>
+                    </dd>
+                    <dt data-property-name="title">
+                      <span class="json-property-name">title:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Option title</p>
+                    </dd>
+                    <dt data-property-name="required">
+                      <span class="json-property-name">required:</span>
+                      <span class="json-property-type">boolean</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Is required option</p>
+                    </dd>
+                    <dt data-property-name="type">
+                      <span class="json-property-name">type:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Input type</p>
+                    </dd>
+                    <dt data-property-name="position">
+                      <span class="json-property-name">position:</span>
+                      <span class="json-property-type">integer</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Option position</p>
+                    </dd>
+                    <dt data-property-name="sku">
+                      <span class="json-property-name">sku:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Product sku</p>
+                    </dd>
+                    <dt data-property-name="product_links">
+                      <span class="json-property-name">product_links:</span>
+                      <span class="json-property-type">object[]</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Product links</p>
+                    </dd>
+                  </dl>
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-Category" class="panel panel-definition" data-traverse-target="definition-Category">
+            <h2 class="panel-title">
+              <a name="/definitions/Category"></a>Category:
+              <span class="json-property-type">
+                <span class="json-property-type">object</span>
+                <span class="json-property-range" title="Value limits"></span>
+              </span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy"> </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="id">
+                      <span class="json-property-name">id:</span>
+                      <span class="json-property-type">integer</span>
+                      <span class="json-property-format">(int64)</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="name">
+                      <span class="json-property-name">name:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                  </dl>
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-configurable-product-data-option-interface" class="panel panel-definition" data-traverse-target="definition-configurable-product-data-option-interface">
+            <h2 class="panel-title">
+              <a name="/definitions/configurable-product-data-option-interface"></a>configurable-product-data-option-interface:
+              <span class="json-property-type">
+                <span class="json-property-type">object</span>
+                <span class="json-property-range" title="Value limits"></span>
+              </span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy"> </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-description">
+                  <p>Interface OptionInterface</p>
+                </section>
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="id">
+                      <span class="json-property-name">id:</span>
+                      <span class="json-property-type">integer</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="attribute_id">
+                      <span class="json-property-name">attribute_id:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="label">
+                      <span class="json-property-name">label:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="position">
+                      <span class="json-property-name">position:</span>
+                      <span class="json-property-type">integer</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="is_use_default">
+                      <span class="json-property-name">is_use_default:</span>
+                      <span class="json-property-type">boolean</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="values">
+                      <span class="json-property-name">values:</span>
+                      <span class="json-property-type">object[]</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="product_id">
+                      <span class="json-property-name">product_id:</span>
+                      <span class="json-property-type">integer</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                  </dl>
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-configurable-product-data-option-value-interface" class="panel panel-definition" data-traverse-target="definition-configurable-product-data-option-value-interface">
+            <h2 class="panel-title">
+              <a name="/definitions/configurable-product-data-option-value-interface"></a>configurable-product-data-option-value-interface:
+              <span class="json-property-type">
+                <span class="json-property-type">object</span>
+                <span class="json-property-range" title="Value limits"></span>
+              </span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy"> </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-description">
+                  <p>Interface OptionValueInterface</p>
+                </section>
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="value_index">
+                      <span class="json-property-name">value_index:</span>
+                      <span class="json-property-type">integer</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
+                    </dt>
+                  </dl>
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-error-errors" class="panel panel-definition" data-traverse-target="definition-error-errors">
+            <h2 class="panel-title">
+              <a name="/definitions/error-errors"></a>error-errors:
+              <span class="json-property-type">
+                <span class="json-property-type">object[]</span>
+                <span class="json-property-range" title="Value limits"></span>
+              </span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy"> </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-description">
+                  <p>Errors list</p>
+                </section>
+                <section class="json-schema-array-items">
+                  <span class="json-property-type">
+                    <span class="">
+                      <a class="json-schema-ref" href="#/definitions/error-errors-item">error-errors-item</a>
+                    </span>
+                  </span>
+                  <span class="json-property-range" title="Value limits"></span>
+                  <div class="json-inner-schema"> </div>
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-error-errors-item" class="panel panel-definition" data-traverse-target="definition-error-errors-item">
+            <h2 class="panel-title">
+              <a name="/definitions/error-errors-item"></a>error-errors-item:
+              <span class="json-property-type">
+                <span class="json-property-type">object</span>
+                <span class="json-property-range" title="Value limits"></span>
+              </span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy"> </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-description">
+                  <p>Error details</p>
+                </section>
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="message">
+                      <span class="json-property-name">message:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Error message</p>
+                    </dd>
+                    <dt data-property-name="parameters">
+                      <span class="json-property-name">parameters:</span>
+                      <span class="json-property-type">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/error-parameters">error-parameters</a>
+                        </span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                  </dl>
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-error-parameters" class="panel panel-definition" data-traverse-target="definition-error-parameters">
+            <h2 class="panel-title">
+              <a name="/definitions/error-parameters"></a>error-parameters:
+              <span class="json-property-type">
+                <span class="json-property-type">object[]</span>
+                <span class="json-property-range" title="Value limits"></span>
+              </span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy"> </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-description">
+                  <p>Error parameters list</p>
+                </section>
+                <section class="json-schema-array-items">
+                  <span class="json-property-type">
+                    <span class="">
+                      <a class="json-schema-ref" href="#/definitions/error-parameters-item">error-parameters-item</a>
+                    </span>
+                  </span>
+                  <span class="json-property-range" title="Value limits"></span>
+                  <div class="json-inner-schema"> </div>
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-error-parameters-item" class="panel panel-definition" data-traverse-target="definition-error-parameters-item">
+            <h2 class="panel-title">
+              <a name="/definitions/error-parameters-item"></a>error-parameters-item:
+              <span class="json-property-type">
+                <span class="json-property-type">object</span>
+                <span class="json-property-range" title="Value limits"></span>
+              </span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy"> </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-description">
+                  <p>Error parameters item</p>
+                </section>
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="resources">
+                      <span class="json-property-name">resources:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>ACL resource</p>
+                    </dd>
+                    <dt data-property-name="fieldName">
+                      <span class="json-property-name">fieldName:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Missing or invalid field name</p>
+                    </dd>
+                    <dt data-property-name="fieldValue">
+                      <span class="json-property-name">fieldValue:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Incorrect field value</p>
+                    </dd>
+                  </dl>
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-error-response" class="panel panel-definition" data-traverse-target="definition-error-response">
+            <h2 class="panel-title">
+              <a name="/definitions/error-response"></a>error-response:
+              <span class="json-property-type">
+                <span class="json-property-type">object</span>
+                <span class="json-property-range" title="Value limits"></span>
+              </span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy"> </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="message">
+                      <span class="json-property-name">message:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
+                    </dt>
+                    <dd>
+                      <p>Error message</p>
+                    </dd>
+                    <dt data-property-name="errors">
+                      <span class="json-property-name">errors:</span>
+                      <span class="json-property-type">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/error-errors">error-errors</a>
+                        </span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="code">
+                      <span class="json-property-name">code:</span>
+                      <span class="json-property-type">integer</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Error code</p>
+                    </dd>
+                    <dt data-property-name="parameters">
+                      <span class="json-property-name">parameters:</span>
+                      <span class="json-property-type">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/error-parameters">error-parameters</a>
+                        </span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="trace">
+                      <span class="json-property-name">trace:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Stack trace</p>
+                    </dd>
+                  </dl>
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-framework-attribute-interface" class="panel panel-definition" data-traverse-target="definition-framework-attribute-interface">
+            <h2 class="panel-title">
+              <a name="/definitions/framework-attribute-interface"></a>framework-attribute-interface:
+              <span class="json-property-type">
+                <span class="json-property-type">object</span>
+                <span class="json-property-range" title="Value limits"></span>
+              </span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy"> </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-description">
+                  <p>Interface for custom attribute value.</p>
+                </section>
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="attribute_code">
+                      <span class="json-property-name">attribute_code:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
+                    </dt>
+                    <dd>
+                      <p>Attribute code</p>
+                    </dd>
+                    <dt data-property-name="value">
+                      <span class="json-property-name">value:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
+                    </dt>
+                    <dd>
+                      <p>Attribute value</p>
+                    </dd>
+                  </dl>
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-inventory-data-stock-item-interface" class="panel panel-definition" data-traverse-target="definition-inventory-data-stock-item-interface">
+            <h2 class="panel-title">
+              <a name="/definitions/inventory-data-stock-item-interface"></a>inventory-data-stock-item-interface:
+              <span class="json-property-type">
+                <span class="json-property-type">object</span>
+                <span class="json-property-range" title="Value limits"></span>
+              </span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy"> </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-description">
+                  <p>Interface StockItem</p>
+                </section>
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="item_id">
+                      <span class="json-property-name">item_id:</span>
+                      <span class="json-property-type">integer</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="product_id">
+                      <span class="json-property-name">product_id:</span>
+                      <span class="json-property-type">integer</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="stock_id">
+                      <span class="json-property-name">stock_id:</span>
+                      <span class="json-property-type">integer</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Stock identifier</p>
+                    </dd>
+                    <dt data-property-name="qty">
+                      <span class="json-property-name">qty:</span>
+                      <span class="json-property-type">number</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
+                    </dt>
+                    <dt data-property-name="is_in_stock">
+                      <span class="json-property-name">is_in_stock:</span>
+                      <span class="json-property-type">boolean</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
+                    </dt>
+                    <dd>
+                      <p>Stock Availability</p>
+                    </dd>
+                    <dt data-property-name="is_qty_decimal">
+                      <span class="json-property-name">is_qty_decimal:</span>
+                      <span class="json-property-type">boolean</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
+                    </dt>
+                    <dt data-property-name="show_default_notification_message">
+                      <span class="json-property-name">show_default_notification_message:</span>
+                      <span class="json-property-type">boolean</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
+                    </dt>
+                    <dt data-property-name="use_config_min_qty">
+                      <span class="json-property-name">use_config_min_qty:</span>
+                      <span class="json-property-type">boolean</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
+                    </dt>
+                    <dt data-property-name="min_qty">
+                      <span class="json-property-name">min_qty:</span>
+                      <span class="json-property-type">number</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
+                    </dt>
+                    <dd>
+                      <p>Minimal quantity available for item status in stock</p>
+                    </dd>
+                    <dt data-property-name="use_config_min_sale_qty">
+                      <span class="json-property-name">use_config_min_sale_qty:</span>
+                      <span class="json-property-type">integer</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
+                    </dt>
+                    <dt data-property-name="min_sale_qty">
+                      <span class="json-property-name">min_sale_qty:</span>
+                      <span class="json-property-type">number</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
+                    </dt>
+                    <dd>
+                      <p>Minimum Qty Allowed in Shopping Cart or NULL when there is no limitation</p>
+                    </dd>
+                    <dt data-property-name="use_config_max_sale_qty">
+                      <span class="json-property-name">use_config_max_sale_qty:</span>
+                      <span class="json-property-type">boolean</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
+                    </dt>
+                    <dt data-property-name="max_sale_qty">
+                      <span class="json-property-name">max_sale_qty:</span>
+                      <span class="json-property-type">number</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
+                    </dt>
+                    <dd>
+                      <p>Maximum Qty Allowed in Shopping Cart data wrapper</p>
+                    </dd>
+                    <dt data-property-name="use_config_backorders">
+                      <span class="json-property-name">use_config_backorders:</span>
+                      <span class="json-property-type">boolean</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
+                    </dt>
+                    <dt data-property-name="backorders">
+                      <span class="json-property-name">backorders:</span>
+                      <span class="json-property-type">integer</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
+                    </dt>
+                    <dd>
+                      <p>Backorders status</p>
+                    </dd>
+                    <dt data-property-name="use_config_notify_stock_qty">
+                      <span class="json-property-name">use_config_notify_stock_qty:</span>
+                      <span class="json-property-type">boolean</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
+                    </dt>
+                    <dt data-property-name="notify_stock_qty">
+                      <span class="json-property-name">notify_stock_qty:</span>
+                      <span class="json-property-type">number</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
+                    </dt>
+                    <dd>
+                      <p>Notify for Quantity Below data wrapper</p>
+                    </dd>
+                    <dt data-property-name="use_config_qty_increments">
+                      <span class="json-property-name">use_config_qty_increments:</span>
+                      <span class="json-property-type">boolean</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
+                    </dt>
+                    <dt data-property-name="qty_increments">
+                      <span class="json-property-name">qty_increments:</span>
+                      <span class="json-property-type">number</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
+                    </dt>
+                    <dd>
+                      <p>Quantity Increments data wrapper</p>
+                    </dd>
+                    <dt data-property-name="use_config_enable_qty_inc">
+                      <span class="json-property-name">use_config_enable_qty_inc:</span>
+                      <span class="json-property-type">boolean</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
+                    </dt>
+                    <dt data-property-name="enable_qty_increments">
+                      <span class="json-property-name">enable_qty_increments:</span>
+                      <span class="json-property-type">boolean</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
+                    </dt>
+                    <dd>
+                      <p>Whether Quantity Increments is enabled</p>
+                    </dd>
+                    <dt data-property-name="use_config_manage_stock">
+                      <span class="json-property-name">use_config_manage_stock:</span>
+                      <span class="json-property-type">boolean</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
+                    </dt>
+                    <dt data-property-name="manage_stock">
+                      <span class="json-property-name">manage_stock:</span>
+                      <span class="json-property-type">boolean</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
+                    </dt>
+                    <dd>
+                      <p>Can Manage Stock</p>
+                    </dd>
+                    <dt data-property-name="low_stock_date">
+                      <span class="json-property-name">low_stock_date:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
+                    </dt>
+                    <dt data-property-name="is_decimal_divided">
+                      <span class="json-property-name">is_decimal_divided:</span>
+                      <span class="json-property-type">boolean</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
+                    </dt>
+                    <dt data-property-name="stock_status_changed_auto">
+                      <span class="json-property-name">stock_status_changed_auto:</span>
+                      <span class="json-property-type">integer</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
+                    </dt>
+                  </dl>
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-product" class="panel panel-definition" data-traverse-target="definition-product">
+            <h2 class="panel-title">
+              <a name="/definitions/product"></a>product:
+              <span class="json-property-type">
+                <span class="json-property-type">object</span>
+                <span class="json-property-range" title="Value limits"></span>
+              </span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy"> </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="id">
+                      <span class="json-property-name">id:</span>
+                      <span class="json-property-type">integer</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Id</p>
+                    </dd>
+                    <dt data-property-name="sku">
+                      <span class="json-property-name">sku:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
+                    </dt>
+                    <dd>
+                      <p>Sku</p>
+                    </dd>
+                    <dt data-property-name="name">
+                      <span class="json-property-name">name:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Name</p>
+                    </dd>
+                    <dt data-property-name="attribute_set_id">
+                      <span class="json-property-name">attribute_set_id:</span>
+                      <span class="json-property-type">integer</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Attribute set id</p>
+                    </dd>
+                    <dt data-property-name="price">
+                      <span class="json-property-name">price:</span>
+                      <span class="json-property-type">number</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Price</p>
+                    </dd>
+                    <dt data-property-name="status">
+                      <span class="json-property-name">status:</span>
+                      <span class="json-property-type">integer</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Status</p>
+                    </dd>
+                    <dt data-property-name="visibility">
+                      <span class="json-property-name">visibility:</span>
+                      <span class="json-property-type">integer</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Visibility</p>
+                    </dd>
+                    <dt data-property-name="type_id">
+                      <span class="json-property-name">type_id:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Type id</p>
+                    </dd>
+                    <dt data-property-name="created_at">
+                      <span class="json-property-name">created_at:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Created date</p>
+                    </dd>
+                    <dt data-property-name="updated_at">
+                      <span class="json-property-name">updated_at:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Updated date</p>
+                    </dd>
+                    <dt data-property-name="weight">
+                      <span class="json-property-name">weight:</span>
+                      <span class="json-property-type">number</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Weight</p>
+                    </dd>
+                    <dt data-property-name="extension_attributes">
+                      <span class="json-property-name">extension_attributes:</span>
+                      <span class="json-property-type">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/product-extension-interface">product-extension-interface</a>
+                        </span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="product_links">
+                      <span class="json-property-name">product_links:</span>
+                      <span class="json-property-type">object[]</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Product links info</p>
+                    </dd>
+                    <dt data-property-name="options">
+                      <span class="json-property-name">options:</span>
+                      <span class="json-property-type">object[]</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>List of product options</p>
+                    </dd>
+                    <dt data-property-name="tier_prices">
+                      <span class="json-property-name">tier_prices:</span>
+                      <span class="json-property-type">object[]</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>List of product tier prices</p>
+                    </dd>
+                    <dt data-property-name="custom_attributes">
+                      <span class="json-property-name">custom_attributes:</span>
+                      <span class="json-property-type">object[]</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Custom attributes values.</p>
+                    </dd>
+                  </dl>
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-product-custom-option-interface" class="panel panel-definition" data-traverse-target="definition-product-custom-option-interface">
+            <h2 class="panel-title">
+              <a name="/definitions/product-custom-option-interface"></a>product-custom-option-interface:
+              <span class="json-property-type">
+                <span class="json-property-type">object</span>
+                <span class="json-property-range" title="Value limits"></span>
+              </span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy"> </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="product_sku">
+                      <span class="json-property-name">product_sku:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
+                    </dt>
+                    <dd>
+                      <p>Product SKU</p>
+                    </dd>
+                    <dt data-property-name="option_id">
+                      <span class="json-property-name">option_id:</span>
+                      <span class="json-property-type">integer</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Option id</p>
+                    </dd>
+                    <dt data-property-name="title">
+                      <span class="json-property-name">title:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
+                    </dt>
+                    <dd>
+                      <p>Option title</p>
+                    </dd>
+                    <dt data-property-name="type">
+                      <span class="json-property-name">type:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
+                    </dt>
+                    <dd>
+                      <p>Option type</p>
+                    </dd>
+                    <dt data-property-name="sort_order">
+                      <span class="json-property-name">sort_order:</span>
+                      <span class="json-property-type">integer</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
+                    </dt>
+                    <dd>
+                      <p>Sort order</p>
+                    </dd>
+                    <dt data-property-name="is_require">
+                      <span class="json-property-name">is_require:</span>
+                      <span class="json-property-type">boolean</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
+                    </dt>
+                    <dd>
+                      <p>Is require</p>
+                    </dd>
+                    <dt data-property-name="price">
+                      <span class="json-property-name">price:</span>
+                      <span class="json-property-type">number</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Price</p>
+                    </dd>
+                    <dt data-property-name="price_type">
+                      <span class="json-property-name">price_type:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Price type</p>
+                    </dd>
+                    <dt data-property-name="sku">
+                      <span class="json-property-name">sku:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Sku</p>
+                    </dd>
+                    <dt data-property-name="file_extension">
+                      <span class="json-property-name">file_extension:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="max_characters">
+                      <span class="json-property-name">max_characters:</span>
+                      <span class="json-property-type">integer</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="image_size_x">
+                      <span class="json-property-name">image_size_x:</span>
+                      <span class="json-property-type">integer</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="image_size_y">
+                      <span class="json-property-name">image_size_y:</span>
+                      <span class="json-property-type">integer</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="values">
+                      <span class="json-property-name">values:</span>
+                      <span class="json-property-type">object[]</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                  </dl>
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-product-custom-option-values-interface" class="panel panel-definition" data-traverse-target="definition-product-custom-option-values-interface">
+            <h2 class="panel-title">
+              <a name="/definitions/product-custom-option-values-interface"></a>product-custom-option-values-interface:
+              <span class="json-property-type">
+                <span class="json-property-type">object</span>
+                <span class="json-property-range" title="Value limits"></span>
+              </span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy"> </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="title">
+                      <span class="json-property-name">title:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
+                    </dt>
+                    <dd>
+                      <p>Option title</p>
+                    </dd>
+                    <dt data-property-name="sort_order">
+                      <span class="json-property-name">sort_order:</span>
+                      <span class="json-property-type">integer</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
+                    </dt>
+                    <dd>
+                      <p>Sort order</p>
+                    </dd>
+                    <dt data-property-name="price">
+                      <span class="json-property-name">price:</span>
+                      <span class="json-property-type">number</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
+                    </dt>
+                    <dd>
+                      <p>Price</p>
+                    </dd>
+                    <dt data-property-name="price_type">
+                      <span class="json-property-name">price_type:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
+                    </dt>
+                    <dd>
+                      <p>Price type</p>
+                    </dd>
+                    <dt data-property-name="sku">
+                      <span class="json-property-name">sku:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Sku</p>
+                    </dd>
+                    <dt data-property-name="option_type_id">
+                      <span class="json-property-name">option_type_id:</span>
+                      <span class="json-property-type">integer</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Option type id</p>
+                    </dd>
+                  </dl>
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-product-extension-interface" class="panel panel-definition" data-traverse-target="definition-product-extension-interface">
+            <h2 class="panel-title">
+              <a name="/definitions/product-extension-interface"></a>product-extension-interface:
+              <span class="json-property-type">
+                <span class="json-property-type">object</span>
+                <span class="json-property-range" title="Value limits"></span>
+              </span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy"> </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-description">
+                  <p>extending</p>
+                </section>
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="stock_item">
+                      <span class="json-property-name">stock_item:</span>
+                      <span class="json-property-type">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/inventory-data-stock-item-interface">inventory-data-stock-item-interface</a>
+                        </span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="bundle_product_options">
+                      <span class="json-property-name">bundle_product_options:</span>
+                      <span class="json-property-type">object[]</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="configurable_product_options">
+                      <span class="json-property-name">configurable_product_options:</span>
+                      <span class="json-property-type">object[]</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="configurable_product_links">
+                      <span class="json-property-name">configurable_product_links:</span>
+                      <span class="json-property-type">integer[]</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                  </dl>
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-product-link-interface" class="panel panel-definition" data-traverse-target="definition-product-link-interface">
+            <h2 class="panel-title">
+              <a name="/definitions/product-link-interface"></a>product-link-interface:
+              <span class="json-property-type">
+                <span class="json-property-type">object</span>
+                <span class="json-property-range" title="Value limits"></span>
+              </span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy"> </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="sku">
+                      <span class="json-property-name">sku:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
+                    </dt>
+                    <dd>
+                      <p>SKU</p>
+                    </dd>
+                    <dt data-property-name="link_type">
+                      <span class="json-property-name">link_type:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
+                    </dt>
+                    <dd>
+                      <p>Link type</p>
+                    </dd>
+                    <dt data-property-name="linked_product_sku">
+                      <span class="json-property-name">linked_product_sku:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
+                    </dt>
+                    <dd>
+                      <p>Linked product sku</p>
+                    </dd>
+                    <dt data-property-name="linked_product_type">
+                      <span class="json-property-name">linked_product_type:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
+                    </dt>
+                    <dd>
+                      <p>Linked product type (simple, virtual, etc)</p>
+                    </dd>
+                    <dt data-property-name="position">
+                      <span class="json-property-name">position:</span>
+                      <span class="json-property-type">integer</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
+                    </dt>
+                    <dd>
+                      <p>Linked item position</p>
+                    </dd>
+                  </dl>
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-product-tier-price-interface" class="panel panel-definition" data-traverse-target="definition-product-tier-price-interface">
+            <h2 class="panel-title">
+              <a name="/definitions/product-tier-price-interface"></a>product-tier-price-interface:
+              <span class="json-property-type">
+                <span class="json-property-type">object</span>
+                <span class="json-property-range" title="Value limits"></span>
+              </span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy"> </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="customer_group_id">
+                      <span class="json-property-name">customer_group_id:</span>
+                      <span class="json-property-type">integer</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
+                    </dt>
+                    <dd>
+                      <p>Customer group id</p>
+                    </dd>
+                    <dt data-property-name="qty">
+                      <span class="json-property-name">qty:</span>
+                      <span class="json-property-type">number</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
+                    </dt>
+                    <dd>
+                      <p>Tier qty</p>
+                    </dd>
+                    <dt data-property-name="value">
+                      <span class="json-property-name">value:</span>
+                      <span class="json-property-type">number</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
+                    </dt>
+                    <dd>
+                      <p>Price value</p>
+                    </dd>
+                  </dl>
+                </section>
+              </div>
+            </div>
+          </div>
+          <div class="doc-row no-margin">
+            <div class="doc-copy doc-separator">
+              <a class="powered-by" href="http://sourcey.com/spectacle">Documentation by
+                <span>Spectacle</span>
+              </a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </body>
 </html>
