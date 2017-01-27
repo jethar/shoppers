@@ -12,7 +12,7 @@ There are two approaches to building scalable technical stack:
 
 ***Serverless Architecture*** provides certain advantages in simplifying the deployment as well as it is inherently built on event-driven stack while it needs to be architected as part of solution for microservices architecture.
 
-Serverless can be implemented on top of *AWS Lambda* and *API Gateway* on AWS Cloud or using *Azure Functions* on Azure Cloud
+Serverless can be implemented on top of *AWS Lambda*, *API Gateway* and *[AWS Step Functions](https://aws.amazon.com/step-functions)* on AWS Cloud or using *Azure Functions* on Azure Cloud
 
 
 ## Available code
