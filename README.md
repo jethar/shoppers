@@ -13,7 +13,7 @@ There are two approaches to building scalable technical stack:
 **Technical Stack**
 ![Technical Stack](https://rawgit.com/jethar/shoppers/master/design/technical-stack-alternatives.png)
 
-The serverless architecture provides certain advantages in simplifying the deployment as well as it is inherently built on event-driven stack while it needs to be architected as part of solution for microservices architecture.
+***Serverless Architecture*** provides certain advantages in simplifying the deployment as well as it is inherently built on event-driven stack while it needs to be architected as part of solution for microservices architecture.
 
 
 ## Available code
